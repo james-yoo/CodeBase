@@ -48,7 +48,6 @@
 **
 ****************************************************************************/
 
-#include <QApplication>
 #include <QDesktopWidget>
 #include <QSurfaceFormat>
 #include "mainwindow.h"

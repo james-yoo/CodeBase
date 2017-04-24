@@ -184,7 +184,7 @@
  * Treat all blank numeric fields as null too.
  */
 
-#include "shapefil.h"
+#include "include/shapefil.h"
 
 #include <math.h>
 #include <stdlib.h>

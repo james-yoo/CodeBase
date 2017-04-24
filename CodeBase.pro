@@ -20,7 +20,7 @@ SOURCES += main.cpp\
     src/mapglwidget.cpp \
 
 HEADERS  += mainwindow.h \
-    shape/shapefil.h \
+    include/shapefil.h \
     include/mapglwidget.h \
 
 LIBS += -lopengl32
