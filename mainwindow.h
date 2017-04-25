@@ -58,6 +58,8 @@
 #include <QGroupBox>
 #include <QRadioButton>
 #include <QMessageBox>
+#include <QPushButton>
+#include <QTextEdit>
 #include "include/mapglwidget.h"
 
 class MainWindow : public QMainWindow
@@ -70,9 +72,13 @@ public:
 
 private:
     MapGLWidget *m_mapWidget;   
+    QMenuBar *m_menuBar;
+    QMenu *m_fileMenu;
+    QAction *m_exitAction;
     QGroupBox *m_horizontalGroupBox;
+    QPushButton *buttons[4];
 
-    void createActions();
+    void createMenu();
     void createControlGroupBox();
     void about();
 };

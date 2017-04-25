@@ -53,30 +53,28 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
+    createMenu();
+    createControlGroupBox();
+
     //QVBoxLayout *mainLayout = new QVBoxLayout;
     //mainLayout->setMenuBar(m_menuBar);
     m_mapWidget = new MapGLWidget(this);
     m_mapWidget->setMinimumSize(640,480);
     setCentralWidget(m_mapWidget);
 
-    createActions();
+    //QTextEdit *bigEditor = new QTextEdit;
+    //bigEditor->setPlainText(tr("This widget takes up all the remaining space "
+       //                        "in the top-level layout."));
+
     //QGridLayout *grid = new QGridLayout;
+
     //grid->addWidget(m_mapWidget, 0, 0);
-    //grid->addWidget(createShapeLoadGroupBox(), 0, 0);
+    //grid->addWidget(bigEditor, 0, 0);
+    //grid->addWidget(m_horizontalGroupBox, 0, 1);
     //setLayout(grid);
-    //QVBoxLayout *mainLayout = new QVBoxLayout;
-    //QHBoxLayout *container = new QHBoxLayout;
-    //container->addWidget(glWidget);
-
-    //QWidget *w = new QWidget;
-    //w->setLayout(container);
-    //mainLayout->addWidget(m_mapWidget);
-
-    //setLayout(mainLayout);
 
 
-
-    setWindowTitle(tr("Hello CodeBase"));
+    setWindowTitle(tr("Hello CodeBase project"));
 }
 
 MainWindow::~MainWindow()
@@ -84,33 +82,23 @@ MainWindow::~MainWindow()
     delete m_mapWidget;
 }
 
-void MainWindow::createActions()
+void MainWindow::createMenu()
 {
+    //m_menuBar = new QMenuBar;
+
+    //m_fileMenu = new QMenu(tr("&File"), this);
+    //m_exitAction = m_fileMenu->addAction(tr("E&xit"));
+    //m_menuBar->addMenu(m_fileMenu);
+
+    //connect(m_exitAction, SIGNAL(triggered()), this, SLOT(accept()));
+
     QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
 
-    const QIcon newIcon = QIcon::fromTheme("document-new", QIcon(":/images/new.png"));
-    QAction *newLetterAct = new QAction(newIcon, tr("&New Letter"), this);
-    newLetterAct->setShortcuts(QKeySequence::New);
-    newLetterAct->setStatusTip(tr("Create a new form letter"));
+    QAction *fileOpenAct = new QAction(QString("&Open File"), this);
+    fileOpenAct->setShortcuts(QKeySequence::New);
+    fileOpenAct->setStatusTip(QString("Open shape format file"));
     //connect(newLetterAct, &QAction::triggered, this, &MainWindow::newLetter);
-    fileMenu->addAction(newLetterAct);
-    //fileToolBar->addAction(newLetterAct);
-
-    const QIcon saveIcon = QIcon::fromTheme("document-save", QIcon(":/images/save.png"));
-    QAction *saveAct = new QAction(saveIcon, tr("&Save..."), this);
-    saveAct->setShortcuts(QKeySequence::Save);
-    saveAct->setStatusTip(tr("Save the current form letter"));
-    //connect(saveAct, &QAction::triggered, this, &MainWindow::save);
-    fileMenu->addAction(saveAct);
-    //fileToolBar->addAction(saveAct);
-
-    const QIcon printIcon = QIcon::fromTheme("document-print", QIcon(":/images/print.png"));
-    QAction *printAct = new QAction(printIcon, tr("&Print..."), this);
-    printAct->setShortcuts(QKeySequence::Print);
-    printAct->setStatusTip(tr("Print the current form letter"));
-    //connect(printAct, &QAction::triggered, this, &MainWindow::print);
-    fileMenu->addAction(printAct);
-    //fileToolBar->addAction(printAct);
+    fileMenu->addAction(fileOpenAct);
 
     fileMenu->addSeparator();
 
@@ -118,24 +106,30 @@ void MainWindow::createActions()
     quitAct->setShortcuts(QKeySequence::Quit);
     quitAct->setStatusTip(tr("Quit the application"));
 
-
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
 
-    QAction *aboutAct = helpMenu->addAction(tr("&About"), this, &MainWindow::about);
+    QAction *aboutAct = helpMenu->addAction(QString("&About"), this, &MainWindow::about);
     aboutAct->setStatusTip(tr("Show the application's About box"));
 
-    QAction *aboutQtAct = helpMenu->addAction(tr("About &Qt"), qApp, &QApplication::aboutQt);
+    QAction *aboutQtAct = helpMenu->addAction(QString("About &Qt"), qApp, &QApplication::aboutQt);
     aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
+
 }
 
 void MainWindow::createControlGroupBox()
 {
+    m_horizontalGroupBox = new QGroupBox(QString("Horizontal layout"));
+    QHBoxLayout *layout = new QHBoxLayout;
 
+    for (int i = 0; i < 4; ++i) {
+        buttons[i] = new QPushButton(QString("Button %1").arg(i + 1));
+        layout->addWidget(buttons[i]);
+    }
+    m_horizontalGroupBox->setLayout(layout);
 }
 
 void MainWindow::about()
 {
  QMessageBox::about(this, QString("About Hello CodeBase"),
-          QString("The <b>CodeBase</b> example demonstrates how to "
-             "create Qt based application. "));
+          QString("The <b>CodeBase</b> example."));
 }
