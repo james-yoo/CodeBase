@@ -60,6 +60,8 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QTextEdit>
+#include <QListWidget>
+#include <QDockWidget>
 #include "include/mapglwidget.h"
 
 class MainWindow : public QMainWindow
@@ -75,11 +77,11 @@ private:
     QMenuBar *m_menuBar;
     QMenu *m_fileMenu;
     QAction *m_exitAction;
-    QGroupBox *m_horizontalGroupBox;
-    QPushButton *buttons[4];
+    QListWidget *customerList;
+    QDockWidget *m_dockControl;
 
     void createMenu();
-    void createControlGroupBox();
+    void createDockWindows();
     void about();
 };
 

@@ -53,26 +53,12 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
+    createDockWindows();
     createMenu();
-    createControlGroupBox();
 
-    //QVBoxLayout *mainLayout = new QVBoxLayout;
-    //mainLayout->setMenuBar(m_menuBar);
     m_mapWidget = new MapGLWidget(this);
     m_mapWidget->setMinimumSize(640,480);
     setCentralWidget(m_mapWidget);
-
-    //QTextEdit *bigEditor = new QTextEdit;
-    //bigEditor->setPlainText(tr("This widget takes up all the remaining space "
-       //                        "in the top-level layout."));
-
-    //QGridLayout *grid = new QGridLayout;
-
-    //grid->addWidget(m_mapWidget, 0, 0);
-    //grid->addWidget(bigEditor, 0, 0);
-    //grid->addWidget(m_horizontalGroupBox, 0, 1);
-    //setLayout(grid);
-
 
     setWindowTitle(tr("Hello CodeBase project"));
 }
@@ -84,14 +70,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::createMenu()
 {
-    //m_menuBar = new QMenuBar;
-
-    //m_fileMenu = new QMenu(tr("&File"), this);
-    //m_exitAction = m_fileMenu->addAction(tr("E&xit"));
-    //m_menuBar->addMenu(m_fileMenu);
-
-    //connect(m_exitAction, SIGNAL(triggered()), this, SLOT(accept()));
-
     QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
 
     QAction *fileOpenAct = new QAction(QString("&Open File"), this);
@@ -106,6 +84,9 @@ void MainWindow::createMenu()
     quitAct->setShortcuts(QKeySequence::Quit);
     quitAct->setStatusTip(tr("Quit the application"));
 
+    QMenu *viewMenu = menuBar()->addMenu(tr("&View"));
+    viewMenu->addAction(m_dockControl->toggleViewAction());
+
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
 
     QAction *aboutAct = helpMenu->addAction(QString("&About"), this, &MainWindow::about);
@@ -116,16 +97,22 @@ void MainWindow::createMenu()
 
 }
 
-void MainWindow::createControlGroupBox()
+void MainWindow::createDockWindows()
 {
-    m_horizontalGroupBox = new QGroupBox(QString("Horizontal layout"));
-    QHBoxLayout *layout = new QHBoxLayout;
+  m_dockControl = new QDockWidget(tr("Customers"), this);
+  m_dockControl->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+  customerList = new QListWidget(m_dockControl);
+  customerList->addItems(QStringList()
+          << "John Doe, Harmony Enterprises, 12 Lakeside, Ambleton"
+          << "Jane Doe, Memorabilia, 23 Watersedge, Beaton"
+          << "Tammy Shea, Tiblanka, 38 Sea Views, Carlton"
+          << "Tim Sheen, Caraba Gifts, 48 Ocean Way, Deal"
+          << "Sol Harvey, Chicos Coffee, 53 New Springs, Eccleston"
+          << "Sally Hobart, Tiroli Tea, 67 Long River, Fedula");
+  m_dockControl->setWidget(customerList);
+  addDockWidget(Qt::RightDockWidgetArea, m_dockControl);
 
-    for (int i = 0; i < 4; ++i) {
-        buttons[i] = new QPushButton(QString("Button %1").arg(i + 1));
-        layout->addWidget(buttons[i]);
-    }
-    m_horizontalGroupBox->setLayout(layout);
+  //connect(customerList, &QListWidget::currentTextChanged, this, &MainWindow::insertCustomer);
 }
 
 void MainWindow::about()
