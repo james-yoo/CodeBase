@@ -60,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_mapWidget->setMinimumSize(640,480);
     setCentralWidget(m_mapWidget);
 
-    setWindowTitle(tr("Hello CodeBase project"));
+    setWindowTitle(tr("CodeBase - v1.0"));
 }
 
 MainWindow::~MainWindow()
@@ -74,7 +74,7 @@ void MainWindow::createMenu()
 
     QAction *fileOpenAct = new QAction(QString("&Open File"), this);
     fileOpenAct->setShortcuts(QKeySequence::New);
-    fileOpenAct->setStatusTip(QString("Open shape format file"));
+    fileOpenAct->setStatusTip(QString("Open specific format file"));
     //connect(newLetterAct, &QAction::triggered, this, &MainWindow::newLetter);
     fileMenu->addAction(fileOpenAct);
 
@@ -90,33 +90,43 @@ void MainWindow::createMenu()
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
 
     QAction *aboutAct = helpMenu->addAction(QString("&About"), this, &MainWindow::about);
-    aboutAct->setStatusTip(tr("Show the application's About box"));
+    aboutAct->setStatusTip(tr("Show the About box"));
 
     QAction *aboutQtAct = helpMenu->addAction(QString("About &Qt"), qApp, &QApplication::aboutQt);
-    aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
+    aboutQtAct->setStatusTip(tr("Show the Qt about box"));
 
 }
 
 void MainWindow::createDockWindows()
 {
-  m_dockControl = new QDockWidget(tr("Customers"), this);
-  m_dockControl->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-  customerList = new QListWidget(m_dockControl);
-  customerList->addItems(QStringList()
-          << "John Doe, Harmony Enterprises, 12 Lakeside, Ambleton"
-          << "Jane Doe, Memorabilia, 23 Watersedge, Beaton"
-          << "Tammy Shea, Tiblanka, 38 Sea Views, Carlton"
-          << "Tim Sheen, Caraba Gifts, 48 Ocean Way, Deal"
-          << "Sol Harvey, Chicos Coffee, 53 New Springs, Eccleston"
-          << "Sally Hobart, Tiroli Tea, 67 Long River, Fedula");
-  m_dockControl->setWidget(customerList);
-  addDockWidget(Qt::RightDockWidgetArea, m_dockControl);
+    m_dockControl = new QDockWidget(QString("Control Window"), this);
+    m_dockControl->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
 
-  //connect(customerList, &QListWidget::currentTextChanged, this, &MainWindow::insertCustomer);
+    QWidget *window1 = new QWidget;
+
+    QPushButton *button1 = new QPushButton("One");
+    QPushButton *button2 = new QPushButton("Two");
+    m_textBox = new QTextEdit(QString("Type"));
+
+    QHBoxLayout *layout1 = new QHBoxLayout;
+    layout1->addWidget(button1);
+    layout1->addWidget(button2);
+    layout1->addWidget(m_textBox);
+    window1->setLayout(layout1);
+
+    m_dockControl->setWidget(window1);
+    addDockWidget(Qt::RightDockWidgetArea, m_dockControl);
+
+    connect(button1, SIGNAL(clicked(bool)), this, SLOT(buttonMessage()));
+}
+
+void MainWindow::buttonMessage()
+{
+    m_textBox->setText(QString("button 1 clicked"));
 }
 
 void MainWindow::about()
 {
- QMessageBox::about(this, QString("About Hello CodeBase"),
+ QMessageBox::about(this, QString("About CodeBase"),
           QString("The <b>CodeBase</b> example."));
 }

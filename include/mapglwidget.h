@@ -30,11 +30,11 @@ signals:
     void zRotationChanged(int angle);
 
 protected:
-    void initializeGL() override;
-    void paintGL() override;
-    void resizeGL(int width, int height) override;
-    void mousePressEvent(QMouseEvent *event) override;
-    void mouseMoveEvent(QMouseEvent *event) override;
+    void initializeGL() Q_DECL_OVERRIDE;
+    void paintGL() Q_DECL_OVERRIDE;
+    void resizeGL(int width, int height) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
 
 private:
@@ -45,7 +45,7 @@ private:
     int m_xRot;
     int m_yRot;
     int m_zRot;
-    int m_zDistance;
+    float m_zDistance;
     QPoint m_lastPos;
 };
 #endif

@@ -6,7 +6,7 @@
 
 MapGLWidget::MapGLWidget(QWidget *parent)
     : QOpenGLWidget(parent),
-      m_xMove(0),m_yMove(0),m_xRot(0),m_yRot(0),m_zRot(0),m_zDistance(0)
+      m_xMove(0),m_yMove(0),m_xRot(0),m_yRot(0),m_zRot(0),m_zDistance(1.0)
 {
 
 }
@@ -87,7 +87,12 @@ void MapGLWidget::setZoom(float t_z)
 {
     if(t_z != m_zDistance)
     {
-        m_zDistance = t_z;
+        m_zDistance -= t_z;
+        if(m_zDistance < 0.1f)
+            m_zDistance = 0.1f;
+        if(m_zDistance > 10.0f)
+            m_zDistance = 10.0f;
+
         update();
     }
 }
@@ -112,7 +117,7 @@ void MapGLWidget::paintGL()
     glRotatef(m_xRot/16, 1.0, 0.0, 0.0);
     glRotatef(m_yRot/16, 0.0, 1.0, 0.0);
     glRotatef(m_zRot/16, 0.0, 0.0, 1.0);
-    //glScalef();
+    glScalef(m_zDistance,m_zDistance, 0.0f);
 
     glBegin(GL_TRIANGLES);
     glColor3f(1.0, 0.0, 0.0);
@@ -165,9 +170,10 @@ void MapGLWidget::wheelEvent(QWheelEvent *event)
 {
     QPoint degree = event->angleDelta() / 8;
 
-    if(degree.isNull())
+    if(!degree.isNull())
     {
         QPoint step = degree / 15;
-        m_zDistance -= step.y() * 0.5f;
+        setZoom(step.y() * 0.1f);
+        //m_zDistance -= step.y() * 0.5f;
     }
 }

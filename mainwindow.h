@@ -60,7 +60,6 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QTextEdit>
-#include <QListWidget>
 #include <QDockWidget>
 #include "include/mapglwidget.h"
 
@@ -72,12 +71,15 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void buttonMessage();
+
 private:
     MapGLWidget *m_mapWidget;   
     QMenuBar *m_menuBar;
     QMenu *m_fileMenu;
     QAction *m_exitAction;
-    QListWidget *customerList;
+    QTextEdit *m_textBox;
     QDockWidget *m_dockControl;
 
     void createMenu();
