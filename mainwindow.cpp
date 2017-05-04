@@ -47,8 +47,6 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
-#include <QVBoxLayout>
-#include <QHBoxLayout>
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
@@ -75,7 +73,7 @@ void MainWindow::createMenu()
     QAction *fileOpenAct = new QAction(QString("&Open File"), this);
     fileOpenAct->setShortcuts(QKeySequence::New);
     fileOpenAct->setStatusTip(QString("Open specific format file"));
-    //connect(newLetterAct, &QAction::triggered, this, &MainWindow::newLetter);
+    connect(fileOpenAct, &QAction::triggered, this, &MainWindow::openFileDialog);
     fileMenu->addAction(fileOpenAct);
 
     fileMenu->addSeparator();
@@ -108,21 +106,33 @@ void MainWindow::createDockWindows()
     QPushButton *button2 = new QPushButton("Two");
     m_textBox = new QTextEdit(QString("Type"));
 
-    QHBoxLayout *layout1 = new QHBoxLayout;
-    layout1->addWidget(button1);
-    layout1->addWidget(button2);
-    layout1->addWidget(m_textBox);
-    window1->setLayout(layout1);
+    QHBoxLayout *hLayout = new QHBoxLayout;
+    hLayout->addWidget(button1);
+    hLayout->addWidget(button2);
+    hLayout->addWidget(m_textBox);
+    window1->setLayout(hLayout);
 
     m_dockControl->setWidget(window1);
     addDockWidget(Qt::RightDockWidgetArea, m_dockControl);
 
     connect(button1, SIGNAL(clicked(bool)), this, SLOT(buttonMessage()));
+    connect(button2, SIGNAL(clicked(bool)), this, SLOT(buttonMessage()));
+}
+
+void MainWindow::openFileDialog()
+{
+    // For example: "Mpeg Layer 3 music files (*.mp3)"
+    QString filter = "File Description (*.*)";
+
+    m_filePath = QFileDialog::getOpenFileName(this, "Select a file...", QDir::homePath(), filter);
+    m_textBox->setText(QString("%1").arg(m_filePath));
 }
 
 void MainWindow::buttonMessage()
 {
-    m_textBox->setText(QString("button 1 clicked"));
+    QPushButton *button = qobject_cast<QPushButton *>(QObject::sender());
+    if(button != NULL)
+        m_textBox->setText(QString("button %1 clicked").arg(button->text()));
 }
 
 void MainWindow::about()

@@ -8,9 +8,8 @@ QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = UrbanPilot
+TARGET = CodeBase
 TEMPLATE = app
-
 
 SOURCES += main.cpp\
         mainwindow.cpp \

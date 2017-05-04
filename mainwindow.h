@@ -61,6 +61,10 @@
 #include <QPushButton>
 #include <QTextEdit>
 #include <QDockWidget>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QFileDialog>
+#include <QDir>
 #include "include/mapglwidget.h"
 
 class MainWindow : public QMainWindow
@@ -81,9 +85,11 @@ private:
     QAction *m_exitAction;
     QTextEdit *m_textBox;
     QDockWidget *m_dockControl;
+    QString m_filePath;
 
     void createMenu();
     void createDockWindows();
+    void openFileDialog();
     void about();
 };
 
