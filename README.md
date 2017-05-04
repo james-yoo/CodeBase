@@ -1,5 +1,5 @@
 # CodeBase
-This repository has created to provide skeleton code for Qt5 with OpenGL. 
+This repository has created to provide skeleton code for Qt5 with OpenGL.  
 Frequently used event funtions are implemented.
 
 ## Features
