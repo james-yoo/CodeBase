@@ -1,5 +1,5 @@
 # CodeBase
-"Qt5 + OpenGL" project for research and development.  
+This repository has created to provide skeleton code for Qt5 with OpenGL. 
 Frequently used event funtions are implemented.
 
 ## Features
@@ -7,6 +7,8 @@ Frequently used event funtions are implemented.
 2. Mouse click event for picking mouse position on the scene
 3. Mouse move event for translating and rotating the scene
 4. Mouse wheel event for zoom in/out
+5. DockWindow with button and textedit objects are provided
+6. File selection has implemented using QFileDialog
 
 ## References
 1. <http://doc.qt.io/qt-5/qtopengl-hellogl2-example.htm>
