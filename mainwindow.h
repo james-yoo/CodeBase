@@ -65,7 +65,7 @@
 #include <QHBoxLayout>
 #include <QFileDialog>
 #include <QDir>
-#include "include/mapglwidget.h"
+#include "include/openglwidget.h"
 
 class MainWindow : public QMainWindow
 {
@@ -79,7 +79,7 @@ public slots:
     void buttonMessage();
 
 private:
-    MapGLWidget *m_mapWidget;   
+    OpenGLWidget *m_oglWidget;
     QMenuBar *m_menuBar;
     QMenu *m_fileMenu;
     QAction *m_exitAction;

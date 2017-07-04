@@ -54,16 +54,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     createDockWindows();
     createMenu();
 
-    m_mapWidget = new MapGLWidget(this);
-    m_mapWidget->setMinimumSize(640,480);
-    setCentralWidget(m_mapWidget);
+    m_oglWidget = new OpenGLWidget(this);
+    m_oglWidget->setMinimumSize(640,480);
+    setCentralWidget(m_oglWidget);
 
-    setWindowTitle(tr("CodeBase - v1.0"));
+    setWindowTitle(tr("CodeBase - v1.1"));
 }
 
 MainWindow::~MainWindow()
 {
-    delete m_mapWidget;
+    delete m_oglWidget;
 }
 
 void MainWindow::createMenu()

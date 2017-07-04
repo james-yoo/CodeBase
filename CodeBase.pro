@@ -13,13 +13,9 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    shape/dbfopen.c \
-    shape/safileio.c \
-    shape/shpopen.c \
-    src/mapglwidget.cpp \
+    src/openglwidget.cpp
 
 HEADERS  += mainwindow.h \
-    include/shapefil.h \
-    include/mapglwidget.h \
+    include/openglwidget.h
 
 LIBS += -lopengl32
