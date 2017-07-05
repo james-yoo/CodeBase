@@ -9,6 +9,7 @@ Frequently used event funtions are implemented.
 4. Mouse wheel event for zoom in/out
 5. DockWindow with button and textedit objects are provided
 6. File selection has implemented using QFileDialog
+7. Rendering funcion for displaying text on openGL window
 
 ## References
 1. <http://doc.qt.io/qt-5/qtopengl-hellogl2-example.htm>
